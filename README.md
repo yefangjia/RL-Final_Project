@@ -17,8 +17,74 @@
  ***
  ### Reward
  
+ ```
+ def step(self, action):
+        # Step Function
+        reward = 0
 
+        # Map the action (element of {0,1,2,3,4}) to the direction we walk in
+        direction = self._action_to_direction[action]
+        
+        
+        
+        before_agent_location = self._agent_location.copy()
+        # We use `np.clip` to make sure we don't leave the grid 
+        self._agent_location = np.clip(
+            self._agent_location + direction, 0, self.size - 1
+        )
+        
+        if np.array_equal(before_agent_location, self._agent_location) and action != 4:
+            reward = -100
 
+        # An episode is done iff the agent has reached the target
+        terminated = np.array_equal(self._wet_Number, self.perfact)
+
+        if terminated:
+            reward = 1000
+            
+        #describe the agent location 
+        agent_location = self.space[self._agent_location[0],self._agent_location[1]]
+        
+        # choses watering and agent not at the pound
+        if agent_location > 0 and action == 4:
+            agent_location = agent_location - 1         
+            #if water in tank
+            if self.water > 0:  
+                
+                # if the ground not moisture enough
+                if self._wet_Number[agent_location] <= 0:
+                    
+                    # can watering    
+                    self._wet_Number[agent_location] += 1
+                    self.water = self.water - 1
+                    reward = 50
+                # if moisture enough
+                else:
+                    # can not watering
+                    reward = -100
+            else:
+                # if no water in tank
+                reward = -100
+
+        #refill tank
+        if np.array_equal(self._agent_location, self._water_location):   
+  
+            if self.water <= 2:
+                reward = 10
+            else:
+                reward = -20
+            self.water = 9
+
+        reward = reward + (-1 + np.sum(self._wet_Number) / 15) #encourages the agent to watering
+
+        observation = self._get_obs()
+        info = self._get_info()
+
+        if self.render_mode == "human":
+            self._render_frame()
+
+        return observation, reward, terminated, False, info 
+ ```
 
 
 
