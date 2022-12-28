@@ -3,8 +3,7 @@
 
 #### *The goal* of our project is a drone with a watering system uses Q-learning  to irrigate the farmland until the soil moisture reaches sufficient moisture. In order to solve the problem of food crisis in the future and can reduce the manpower.<br>
 
-#### Clone the package **Final_Project** in our github,  `cd gym-examples` and  `pip install - e .` 
-#### Our project use Open AI gym toolkit to built environment and  pygame to display. Please `pip install gym` and `pip install pygam`<br>
+#### Clone the package **Final_Project** in our github,  `cd gym-examples` and  `pip install - e .` <br/>Our project use Open AI gym toolkit to built environment and  pygame to display. Please `pip install gym` and `pip install pygam`<br>
 ***
 
 #### *Environment : Farm which has the moisture sensor.*
@@ -16,7 +15,7 @@
 <img src="env.jpg" alt="" width="300" heigh="300"/>
  
  ***
- ###Reward
+ ### Reward
  
 
 
